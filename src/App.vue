@@ -1,26 +1,49 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <TheHeader title="Remember what to Learn."></TheHeader>
+ <StoredResources :resources="storedResources"></StoredResources>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+import StoredResources from './components/learning-resources/StoredResources.vue';
+import TheHeader from './components/layouts/TheHeader.vue';
+    export default {
+        components:{
+            StoredResources,
+            TheHeader
+        },
+        data() {
+            return {
+                storedResources:[
+                    {
+                        id: 'officical-guide', 
+                        title:'Official Guide', 
+                        description: 'This is an official guide for VueJS.',
+                        link: 'https://vuejs.org/guide/introduction'
+                    },
+                    {
+                        id: 'google', 
+                        title:'Google', 
+                        description: 'learn to google.',
+                        link: 'https://google.com'
+                    },
+                ]
+            }
+        },
+    }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    * {
+    box-sizing: border-box;
+    }
+
+    html {
+    font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+    margin: 0;
+    }
 </style>
