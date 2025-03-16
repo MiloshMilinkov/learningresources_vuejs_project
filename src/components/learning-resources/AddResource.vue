@@ -23,7 +23,7 @@
                 <input id="link" name="link" type="url" v-model="linkInput">
             </div>
             <div>
-                <BaseButton type="submit" >ADD RESOURCE</BaseButton>
+                <BaseButton type="submit">{{ isEditing ? 'UPDATE RESOURCE' : 'ADD RESOURCE' }}</BaseButton>
             </div>
         </form>
     </BaseCard>
@@ -31,29 +31,53 @@
 
 <script>
 export default {
+    props: ['editingResource'],
     data() {
         return {
             titleInput: '',
             descriptionInput: '',
             linkInput: '',
-            inputIsInvalid: false
+            inputIsInvalid: false,
+            resourceId: null
+        };
+    },
+    watch: {
+        editingResource: {
+            immediate: true,
+            handler(newResource) {
+                if (newResource) {
+                    this.titleInput = newResource.title;
+                    this.descriptionInput = newResource.description;
+                    this.linkInput = newResource.link;
+                    this.resourceId = newResource.id;
+                } else {
+                    this.titleInput = '';
+                    this.descriptionInput = '';
+                    this.linkInput = '';
+                    this.resourceId = null;
+                }
+            }
+        }
+    },
+    computed: {
+        isEditing() {
+            return !!this.resourceId;
         }
     },
     methods: {
-        SubmitResourceData(){
-            if(this.titleInput.trim() === '' || this.descriptionInput.trim() === '' || this.linkInput.trim() === '')
-            {
-                this.inputIsInvalid= true;
+        SubmitResourceData() {
+            if (this.titleInput.trim() === '' || this.descriptionInput.trim() === '' || this.linkInput.trim() === '') {
+                this.inputIsInvalid = true;
                 return;
             }
-            this.addResource(this.titleInput, this.descriptionInput, this.linkInput);
+            this.addResource(this.titleInput, this.descriptionInput, this.linkInput, this.resourceId);
         },
-        confirmError(){
+        confirmError() {
             this.inputIsInvalid = false;
         }
     },
-    inject:['addResource']
-}
+    inject: ['addResource']
+};
 </script>
 
 <style scoped>

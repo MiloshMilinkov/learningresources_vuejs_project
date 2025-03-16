@@ -3,7 +3,10 @@
         <BaseCard>
             <header>
                 <h3>{{ title }}</h3>
-                <BaseButton mode="flat" @click="deleteResource(resId)">Delete</BaseButton>
+                <div>
+                    <BaseButton mode="flat" @click="deleteResource(resId)">Delete</BaseButton>
+                    <BaseButton mode="flat" @click="editResource(resId)">Edit</BaseButton>
+                </div>
             </header>
             <p>{{ description }}</p>
             <nav>
@@ -12,11 +15,12 @@
         </BaseCard>
     </li>        
 </template>
+
 <script>
 export default {
-    props:['resId','title','description','link'],
-    inject:['deleteResource']
-}
+    props: ['resId', 'title', 'description', 'link'],
+    inject: ['deleteResource', 'editResource']
+};
 </script>
 
 <style scoped>
